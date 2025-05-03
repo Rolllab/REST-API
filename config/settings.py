@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv                          # Добавлено !!!
+from datetime import timedelta                          # Добавлено !!!
+import os                                               # Добавлено !!!
+
+load_dotenv()                                           # Добавлено !!!
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,12 +37,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Base apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Installed apps
+    'rest_framework',                           # Добавлено !!!
+    'rest_framework_simplejwt',                 # Добавлено !!!
+    'django_filters',                           # Добавлено !!!
+    'corsheaders',                              # Добавлено !!!
+    'drf-yasg',                                 # Добавлено !!!
+    'redis',                                    # Добавлено !!!
+
 ]
 
 MIDDLEWARE = [
@@ -72,10 +88,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
+USER = os.getenv('DATABASE_USER')               # Добавлено !!!
+PASSWORD = os.getenv('DATABASE_PASSWORD')       # Добавлено !!!
+NAME = os.getenv('DATABASE_NAME')               # Добавлено !!!
+HOST = os.getenv('DATABASE_HOST')               # Добавлено !!!
+PORT = os.getenv('DATABASE_PORT')               # Добавлено !!!
+PAD_DATABASE = os.getenv('DATABASE_PAD')        # Добавлено !!!
+ENGINE = os.getenv('DATABASE_ENGINE')           # Добавлено !!!
+
+DATABASES = {                                   # Изменено !!!
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': ENGINE,
+        'NAME': NAME,
+        'USER': USER,
+        'PASSWORD': PASSWORD,
+        'HOST': HOST,
+        'PORT': PORT,
+
     }
 }
 
@@ -102,9 +131,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'                                 # Изменено на ru-ru !!!
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'                             # Изменено на Europe/Moscow !!!
 
 USE_I18N = True
 
@@ -116,7 +145,42 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = (                                  # Добавлено !!!
+    BASE_DIR / 'static',
+)
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CACHE_ENABLED = os.getenv('CACHE_ENABLED')            # Добавлено !!!
+
+if CACHE_ENABLED:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': os.getenv('CACHE_LOCATION')
+        }
+    }
+
+REST_FRAMEWORK = {                                   # Добавлено !!! Настройки REST
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend', ],
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework_simplejwt.authentication.JWTAuthentication',],
+    # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated',],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny',],
+}
+
+SIMPLE_JWT = {                                      # Добавлено !!! Настройки токена JWT
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=180),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
+
+CORS_ALLOWED_ORIGINS = [                            # Добавлено !!! Документация
+    'http://read-only.exemple.com',
+    'http://read-and-write.exemple.com',
+]
+
+CSRF_TRUSTED_ORIGINS = [                            # Добавлено !!! Документация
+    'http://read-and-write.exemple.com'
+]
