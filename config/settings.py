@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',                 # Добавлено !!!
     'django_filters',                           # Добавлено !!!
     'corsheaders',                              # Добавлено !!!
-    'drf-yasg',                                 # Добавлено !!!
+    'drf_yasg',                                 # Добавлено !!!
     'redis',                                    # Добавлено !!!
 
 ]
