@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'drf_yasg',                                 # Добавлено !!!
     'redis',                                    # Добавлено !!!
 
+    # My apps
+    'users',
+
 ]
 
 MIDDLEWARE = [
@@ -153,6 +156,8 @@ STATICFILES_DIRS = (                                  # Добавлено !!!
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'
 
 CACHE_ENABLED = os.getenv('CACHE_ENABLED')            # Добавлено !!!
 
