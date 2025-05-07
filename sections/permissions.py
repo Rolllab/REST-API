@@ -17,4 +17,6 @@ class IsSuperuser(BasePermission):
     message = _('You are not a superuser')
 
     def has_permission(self, request, view):
-        return request.user.is_superuser
+        if request.user.is_superuser:
+            return True
+        return False
