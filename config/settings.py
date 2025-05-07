@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 
     # My apps
     'users',
+    'sections',
 
 ]
 
