@@ -2,11 +2,11 @@ from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView,
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-from sections.models import Section, SectionContent
+from sections.models import Section, Content
 from sections.permissions import IsModerator, IsSuperuser
 from sections.serialaizers.section_serializers import SectionSerializer, SectionListSerializer
-from sections.serialaizers.section_content_serializers import SectionContentSerializer, SectionContentSectionSerializer, \
-    SectionContentListSerializer
+from sections.serialaizers.content_serializers import ContentSerializer, ContentSectionSerializer, \
+    ContentListSerializer
 from sections.paginators import SectionPaginator, SectionContentPaginator
 
 
@@ -46,35 +46,35 @@ class SectionDestroyApiView(DestroyAPIView):
 
 
 
-class SectionContentListApiView(ListAPIView):
-    serializer_class = SectionContentListSerializer
-    queryset = SectionContent.objects.all()
+class ContentListApiView(ListAPIView):
+    serializer_class = ContentListSerializer
+    queryset = Content.objects.all()
     permission_classes = (IsAuthenticated, )
     pagination_class = SectionContentPaginator
 
 
 
-class SectionContentCreateApiView(CreateAPIView):
-    serializer_class = SectionContentSerializer
+class ContentCreateApiView(CreateAPIView):
+    serializer_class = ContentSerializer
     permission_classes = (IsAuthenticated, IsAdminUser | IsModerator)
 
 
 
-class SectionContentRetrieveApiView(RetrieveAPIView):
-    serializer_class = SectionContentSerializer
-    queryset = SectionContent.objects.all()
+class ContentRetrieveApiView(RetrieveAPIView):
+    serializer_class = ContentSerializer
+    queryset = Content.objects.all()
     permission_classes = (IsAuthenticated, )
 
 
 
-class SectionContentUpdateApiView(UpdateAPIView):
-    serializer_class = SectionContentSerializer
-    queryset = SectionContent.objects.all()
+class ContentUpdateApiView(UpdateAPIView):
+    serializer_class = ContentSerializer
+    queryset = Content.objects.all()
     permission_classes = (IsAuthenticated, IsAdminUser | IsModerator)
 
 
 
-class SectionContentDestroyApiView(DestroyAPIView):
-    serializer_class = SectionContentSerializer
-    queryset = SectionContent.objects.all()
+class ContentDestroyApiView(DestroyAPIView):
+    serializer_class = ContentSerializer
+    queryset = Content.objects.all()
     permission_classes = (IsAuthenticated, IsAdminUser | IsModerator)
