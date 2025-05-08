@@ -10,6 +10,7 @@ from sections.serialaizers.section_content_serializers import SectionContentSeri
 from sections.paginators import SectionPaginator, SectionContentPaginator
 
 
+
 class SectionListApiView(ListAPIView):
     serializer_class = SectionListSerializer
     queryset = Section.objects.all()
@@ -17,9 +18,11 @@ class SectionListApiView(ListAPIView):
     pagination_class = SectionPaginator
 
 
+
 class SectionCreateApiView(CreateAPIView):
     serializer_class = SectionSerializer
     permission_classes = (IsAuthenticated, IsAdminUser | IsModerator)
+
 
 
 class SectionRetrieveApiView(RetrieveAPIView):
@@ -28,10 +31,12 @@ class SectionRetrieveApiView(RetrieveAPIView):
     permission_classes = (IsAuthenticated, )
 
 
+
 class SectionUpdateApiView(UpdateAPIView):
     serializer_class = SectionSerializer
     queryset = Section.objects.all()
     permission_classes = (IsAuthenticated, IsAdminUser | IsModerator)
+
 
 
 class SectionDestroyApiView(DestroyAPIView):
@@ -39,3 +44,37 @@ class SectionDestroyApiView(DestroyAPIView):
     queryset = Section.objects.all()
     permission_classes = (IsAuthenticated, IsAdminUser | IsModerator)
 
+
+
+class SectionContentListApiView(ListAPIView):
+    serializer_class = SectionContentListSerializer
+    queryset = SectionContent.objects.all()
+    permission_classes = (IsAuthenticated, )
+    pagination_class = SectionContentPaginator
+
+
+
+class SectionContentCreateApiView(CreateAPIView):
+    serializer_class = SectionContentSerializer
+    permission_classes = (IsAuthenticated, IsAdminUser | IsModerator)
+
+
+
+class SectionContentRetrieveApiView(RetrieveAPIView):
+    serializer_class = SectionContentSerializer
+    queryset = SectionContent.objects.all()
+    permission_classes = (IsAuthenticated, )
+
+
+
+class SectionContentUpdateApiView(UpdateAPIView):
+    serializer_class = SectionContentSerializer
+    queryset = SectionContent.objects.all()
+    permission_classes = (IsAuthenticated, IsAdminUser | IsModerator)
+
+
+
+class SectionContentDestroyApiView(DestroyAPIView):
+    serializer_class = SectionContentSerializer
+    queryset = SectionContent.objects.all()
+    permission_classes = (IsAuthenticated, IsAdminUser | IsModerator)
