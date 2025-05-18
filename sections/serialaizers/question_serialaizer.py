@@ -16,4 +16,5 @@ class QuestionSectionSerializer(ModelSerializer):
 
 class QuestionSerializer(QuestionSectionSerializer):
     class Meta:
+        model = Question
         fields = ('id', 'question_section', 'question')

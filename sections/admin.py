@@ -18,6 +18,7 @@ class ContentAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('id', 'question_section', 'question', 'description', 'answer')
     list_filter = ('question_section', )

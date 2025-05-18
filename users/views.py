@@ -11,24 +11,25 @@ from users.serializers.user_serializers import (UserSerializer, UserCreateSerial
 class UserListApiView(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated, )
 
 
 class UserCreateApiView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserCreateSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
 
 class UserRetrieveApiView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
 
 class UserUpdateApiView(UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserUpdateSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     # def get_queryset(self):
     #     user = self.request.user
@@ -37,7 +38,7 @@ class UserUpdateApiView(UpdateAPIView):
 
 class UserDestroyApiView(DestroyAPIView):
     queryset = User.objects.all()
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
 
 class UserTokenObtainPairView(TokenObtainPairView):
