@@ -26,8 +26,8 @@ class SectionTestCase(APITestCase):
         }
 
         response = self.client.post('/section/create/', data=data)
-        print(response.status_code)
-        print(response.json())
+        # print(response.status_code)
+        # print(response.json())
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.json().get('title'), 'Test Section Create')
         self.assertEqual(response.json().get('description'), 'Test Description Create')
@@ -38,8 +38,8 @@ class SectionTestCase(APITestCase):
 
         # response = self.client.get(f'/section/{self.test_section.id}/')       # цифру 3 можно получить и так
 
-        print(response.status_code)
-        print(response.json())
+        # print(response.status_code)
+        # print(response.json())
         self.assertEqual(response.status_code, HTTP_200_OK)
         self.assertEqual(response.json().get('title'), 'Test Section')
         self.assertEqual(response.json().get('description'), 'Test Description')
@@ -52,8 +52,8 @@ class SectionTestCase(APITestCase):
         }
 
         response = self.client.put(f'/section/{self.test_section.id}/update/', data=data)   # self.test_section.id = 4
-        print(response.status_code)
-        print(response.json())
+        # print(response.status_code)
+        # print(response.json())
         self.assertEqual(response.status_code, HTTP_200_OK)
         self.assertEqual(response.json().get('title'), 'Test Section Update Put')
         self.assertEqual(response.json().get('description'), 'Test Section Description Put')
@@ -61,13 +61,13 @@ class SectionTestCase(APITestCase):
 
     def test_04_section_delete(self):
         response = self.client.delete(f'/section/{self.test_section.id}/delete/')
-        print(response.status_code)
+        # print(response.status_code)
         self.assertEqual(response.status_code, HTTP_204_NO_CONTENT)
 
     # id=6
     def test_05_section_list(self):
         response = self.client.get('/section/')
-        print(response.json())
+        # print(response.json())
         self.assertEqual(response.status_code, HTTP_200_OK)
         self.assertEqual(response.json().get('results')[0]['title'], 'Test Section')
 
@@ -82,7 +82,7 @@ class SectionTestCase(APITestCase):
         }
 
         response = self.client.post('/section/create/', data=data)
-        print(response.status_code)
-        print(response.json())
+        # print(response.status_code)
+        # print(response.json())
         self.assertEqual(response.status_code, HTTP_403_FORBIDDEN)
         self.assertEqual(response.json().get('detail'), 'У вас недостаточно прав для выполнения данного действия.')
