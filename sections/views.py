@@ -97,7 +97,7 @@ class QuestionRetrieveApiView(RetrieveAPIView):
 
     def post(self, request, *args, **kwargs):
         answer = [question.answer for question in Question.objects.all()]
-        answer = answer[self.kwargs.get('pk') -1].strip().lower()
+        answer = answer[self.kwargs.get('pk') - 1].strip().lower()
         user_answer = request.data.get('user_answer').strip().lower()
         is_correct = user_answer == answer
         return Response({"is_correct": is_correct})
